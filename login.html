@@ -9,13 +9,13 @@
     <title>Login - Cafe Nexus</title>
 </head>
 <body>
-<div class="container">
+
+<div class="container" id="login">
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 centered">
             <div class="page-header">
                 <h1>Login to Cafe Nexus</h1>
-                <div id="load-test"></div>
             </div>
             <div class="form-group">
                 <label class="control-label" for="inputEmail">Email address</label>
@@ -25,17 +25,71 @@
                 <label class="control-label" for="inputPassword">Password</label>
                 <input type="password" class="form-control" id="inputPassword" placeholder="Password">
             </div>
-            <button style="margin-bottom: 40px" class="btn btn-default" id="login-button">Submit</button>
-            <button style="margin-bottom: 40px align=right" class="btn btn-default" id="sign_up-button">Sign up</button>
+
+            <button style="margin-bottom: 40px" class="btn btn-default" id="loginBtn">Submit</button>
+            <button style="margin-bottom: 40px" class="btn btn-default" id="loginNoPasswordBtn">Login No Password</button>
+            <p>Not a member yet? Sign up here... </p>
+            <button style="margin-bottom: 40px" class="btn btn-default" id="showSignUpBtn">Sign up</button>
         </div>
     </div>
 
 
 </div>
+<div class="container" id="signUp" style="display: none">
 
-<footer class="footer">
+    <div class="row">
+        <div class="col-lg-6 centered">
+            <div class="page-header">
+                <h1>Sign up to Cafe Nexus</h1>
+                <div id="load-test"></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputFirstName">First name</label>
+                <input type="text" class="form-control" id="inputFirstName" placeholder="Your first name">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputLastName">Last name</label>
+                <input type="text" class="form-control" id="inputLastName" placeholder="Your last name">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="signUpPassword" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="signUpEmail">Email</label>
+                <input type="email" class="form-control" id="signUpEmail" placeholder="Your email address">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputDescription">Description</label>
+                <input type="text" class="form-control" id="inputDescription"
+                       placeholder="How would you describe yourself?">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputGender">Gender (M/F)</label>
+                <input type="text" class="form-control" id="inputGender" placeholder="Write 'M' or 'F'">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputMajor">Major</label>
+                <input type="text" class="form-control" id="inputMajor" placeholder="Write your major">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inputSemester">Semester</label>
+                <input type="number" class="form-control" id="inputSemester"
+                       placeholder="What semester are you at, 1-6?">
+            </div>
+
+            <button style="margin-bottom: 40px" class="btn btn-default" id="signUpBtn">Submit</button>
+            <p>Already a member? Login here... </p>
+            <button style="margin-bottom: 40px" class="btn btn-default" id="showLoginBtn">Login</button>
+        </div>
+
+    </div>
+
+</div>
+
+<footer class="footer" style="position: fixed; bottom: 0;">
     <div class="container">
-        <p class="text-muted">2017 © All rights reserved - Peter Tornsberg</p>
+        <p class="text-muted">2017 © All rights reserved - Cafe Nexus</p>
     </div>
 </footer>
 
@@ -43,5 +97,6 @@
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>
 <script src="js/login.js"></script>
+
 </body>
 </html>

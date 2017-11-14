@@ -1,10 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="lib/css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+
     <meta charset="UTF-8">
     <title>Events - Cafe Nexus</title>
 </head>
+
 <body>
+<div class="container">
+
+    <div class="row" id="nav-container"></div>
+
+    <div class="row" id="events">
+        <div class="col-lg-12">
+            <button style="margin-bottom: 40px" class="btn btn-default" id="showCreateEventBtn">Create new event
+            </button>
+            <h3>Events</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="container" id="createEvent" style="display: none">
+
+        <div class="row">
+            <div class="col-lg-6 centered">
+                <button style="margin-bottom: 40px" class="btn btn-default" id="showEventsBtn">Show all events
+                </button>
+                <h3>Create a new event</h3>
+                <div class="form-group">
+                    <label class="control-label" for="inputTitle">Event title</label>
+                    <input type="text" class="form-control" id="inputTitle" placeholder="The title of your event">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="inputStartDate">Event start</label>
+                    <input type="datetime-local" class="form-control" id="inputStartDate">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="inputEndDate">Event end</label>
+                    <input type="datetime-local" class="form-control" id="inputEndDate">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="inputEventDescription">Description of the event</label>
+                    <input type="text" class="form-control" id="inputEventDescription"
+                           placeholder="How would you describe the event?">
+                </div>
+                <div>
+                    <button style="margin-bottom: 40px" class="btn btn-default" id="createEventBtn">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer" style="position: fixed; bottom: 0;">
+        <div class="container">
+            <p class="text-muted">2017 © All rights reserved - Cafe Nexus</p>
+        </div>
+    </footer>
+
+    <script src="lib/js/jquery-3.2.1.js"></script>
+    <script src="lib/js/bootstrap.js"></script>
+    <script src="js/sdk.js"></script>
+    <script src="js/events.js"></script>
+
+    <script>
+        SDK.User.loadNav();
+    </script>
 
 </body>
 </html>
