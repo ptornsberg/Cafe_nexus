@@ -30,32 +30,45 @@ const SDK = {
             SDK.request({
                 method: "GET",
                 url: "/posts",
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
             }, cb);
         },
+
+        findPost: (event_id, cb) => {
+            SDK.request({
+                method: "GET",
+                url: "/posts",
+                date: event_id,
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
+            }, cb);
+        },
+
+
+
         create: (data, cb) => {
             SDK.request({
                 method: "POST",
                 url: "/posts",
                 data: data,
-                headers: {authorization: SDK.Storage.load("token")}
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
             }, cb);
         }
     },
 
     Events: {
-        create: (title, startDate, endDate, description , cb) => {
+        createEvent: (owner_id, title, startDate, endDate, description , cb) => {
             SDK.request({
-
+                method: "POST",
+                url: "/events",
                 data: {
-                    owner_id: SDK.User.current(),
+                    owner_id: owner_id,
                     title: title,
                     startDate: startDate,
                     endDate: endDate,
                     description: description
                 },
-                headers: {authorization: SDK.Storage.load("token")},
-                method: "POST",
-                url: "/events"
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")},
+
             }, cb);
         },
         findAll: (cb) => {
@@ -63,14 +76,14 @@ const SDK = {
                 method: "GET",
                 url: "/events",
                 headers: {
-                    authorization: SDK.Storage.load("token")
+                   authorization: "Bearer " + SDK.Storage.load("token")
                 }
             }, cb);
         }
     },
     User: {
         findAll: (cb) => {
-            SDK.request({method: "GET", url: "/users"}, cb);
+            SDK.request({url: "/users", method: "GET"}, cb);
         },
         create: (password, firstName, lastName, email, description, gender, major, semester, cb) => {
             SDK.request({
@@ -93,7 +106,6 @@ const SDK = {
         },
         logOut: () => {
             SDK.Storage.remove("token");
-            SDK.Storage.remove("userId");
             window.location.href = "login.html";
         },
         login: (password, email, cb) => {
@@ -117,7 +129,7 @@ const SDK = {
         },
         loadNav: (cb) => {
             $("#nav-container").load("nav.html", () => {
-                const currentUser = SDK.User.current();
+                const currentUser = true //SDK.User.current();
                 if (currentUser) {
                     $(".navbar-right").html(`
             <li><a href="#" id="logout-link">Logout</a></li>

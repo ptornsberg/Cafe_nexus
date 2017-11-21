@@ -23,6 +23,7 @@ $(document).ready(function () {
                 console.log("Something went wrong, try again")
             } else {
                 window.location.href = "home.html";
+                window.alert("You are now logged in");
             }
         });
 
