@@ -44,19 +44,22 @@ const SDK = {
         },
 
 
-
-        create: (data, cb) => {
+        create: (owner, content, event, cb) => {
             SDK.request({
                 method: "POST",
                 url: "/posts",
-                data: data,
+                data: {
+                    owner: owner,
+                    content: content,
+                    event: event
+                },
                 headers: {authorization: "Bearer " + SDK.Storage.load("token")}
             }, cb);
         }
     },
 
     Events: {
-        createEvent: (owner_id, title, startDate, endDate, description , cb) => {
+        createEvent: (owner_id, title, startDate, endDate, description, cb) => {
             SDK.request({
                 method: "POST",
                 url: "/events",
@@ -75,15 +78,27 @@ const SDK = {
             SDK.request({
                 method: "GET",
                 url: "/events",
-                headers: {
-                   authorization: "Bearer " + SDK.Storage.load("token")
-                }
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
             }, cb);
-        }
+        },
+        findEvent: (cb) => {
+            SDK.request({
+                url: "/events/" +SDK.Storage.load("eventId"),
+                method: "GET",
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
+            }, cb);
+        },
     },
     User: {
         findAll: (cb) => {
             SDK.request({url: "/users", method: "GET"}, cb);
+        },
+        findUser: (cb) => {
+            SDK.request({
+                url: "/users/" +SDK.Storage.load("ownerId"),
+                method: "GET",
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
+            }, cb);
         },
         create: (password, firstName, lastName, email, description, gender, major, semester, cb) => {
             SDK.request({
@@ -99,13 +114,14 @@ const SDK = {
                 },
                 method: "POST",
                 url: "/users"
-            }, cb )
+            }, cb)
         },
         current: () => {
             return SDK.Storage.load("userId");
         },
         logOut: () => {
             SDK.Storage.remove("token");
+            SDK.Storage.remove("userId");
             window.location.href = "login.html";
         },
         login: (password, email, cb) => {
@@ -121,15 +137,23 @@ const SDK = {
                 //On login-error
                 if (err) return cb(err);
 
-                SDK.Storage.persist("token", data);
-                cb(null, data);
+                //https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript
+                let token = data;
 
+                var base64Url = token.split('.')[0];
+                var base64 = base64Url.replace('-', '+').replace('_', '/');
+                console.log(JSON.parse(window.atob(base64)));
+
+                SDK.Storage.persist("userId", JSON.parse(window.atob(base64)).kid);
+                SDK.Storage.persist("token", data);
+
+                cb(null, data);
 
             });
         },
         loadNav: (cb) => {
             $("#nav-container").load("nav.html", () => {
-                const currentUser = true //SDK.User.current();
+                const currentUser = SDK.User.current();
                 if (currentUser) {
                     $(".navbar-right").html(`
             <li><a href="#" id="logout-link">Logout</a></li>
