@@ -72,6 +72,7 @@
             </table>
             <div class="row" id="event-list"></div>
             <div class="row" id="post-list"></div>
+
         </div>
         <H3>Add new post</H3>
         <input type="text" class="form-control" id="inputAddPost" placeholder="Add post to event">
@@ -122,6 +123,39 @@
     <script>
         SDK.User.loadNav();
     </script>
+
+<!-- Modal -->
+<div class="modal fade" id="comments-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Comments</th>
+                    </tr>
+                    </thead>
+                    <tbody id="modal-tbody">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <label class="control-label" for="inputComment">Add comment</label>
+                <input type="text" class="form-control" id="inputComment" placeholder="Write your comment">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="addCommentBtn">Add new comment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <footer class="footer" style="position: static; bottom: 0;">
     <div class="container">

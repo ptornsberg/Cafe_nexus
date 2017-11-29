@@ -43,6 +43,14 @@ const SDK = {
             }, cb);
         },
 
+        findComments: (cb) => {
+            SDK.request({
+                method: "GET",
+                url: "/posts/" + SDK.Storage.load("postId"),
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
+            }, cb);
+        },
+
 
         create: (owner, content, event, cb) => {
             SDK.request({
@@ -55,7 +63,19 @@ const SDK = {
                 },
                 headers: {authorization: "Bearer " + SDK.Storage.load("token")}
             }, cb);
-        }
+        },
+        createComment: (owner, content, parent, cb) => {
+            SDK.request({
+                method: "POST",
+                url: "/posts",
+                data: {
+                    owner: owner,
+                    content: content,
+                    parent: parent
+                },
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
+            }, cb);
+        },
     },
 
     Events: {
