@@ -34,15 +34,6 @@ const SDK = {
             }, cb);
         },
 
-        findPost: (event_id, cb) => {
-            SDK.request({
-                method: "GET",
-                url: "/posts",
-                date: event_id,
-                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
-            }, cb);
-        },
-
         findComments: (cb) => {
             SDK.request({
                 method: "GET",
@@ -113,13 +104,7 @@ const SDK = {
         findAll: (cb) => {
             SDK.request({url: "/users", method: "GET"}, cb);
         },
-        findUser: (cb) => {
-            SDK.request({
-                url: "/users/" +SDK.Storage.load("ownerId"),
-                method: "GET",
-                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
-            }, cb);
-        },
+
         create: (password, firstName, lastName, email, description, gender, major, semester, cb) => {
             SDK.request({
                 data: {
@@ -142,6 +127,9 @@ const SDK = {
         logOut: () => {
             SDK.Storage.remove("token");
             SDK.Storage.remove("userId");
+            SDK.Storage.remove("eventId");
+            SDK.Storage.remove("postId");
+            SDK.Storage.remove("users");
             window.location.href = "login.html";
         },
         login: (password, email, cb) => {

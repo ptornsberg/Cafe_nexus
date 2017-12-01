@@ -7,9 +7,7 @@ $(document).ready(function () {
         $("#signUp").hide(1000);
         $("#login").toggle(1000);
     });
-    $("#loginNoPasswordBtn").click(() => {
-        window.location.href = "home.html";
-    });
+
     $("#loginBtn").click(() => {
         const email = $("#inputEmail").val();
         const password = $("#inputPassword").val();
@@ -18,13 +16,18 @@ $(document).ready(function () {
 
             if (err && err.xhr.status === 401) {
                 $(".form-group").addClass("has-error");
+                window.alert("Email or password is wrong, try again");
             }
             else if (err) {
-                console.log("Something went wrong, try again")
+                $(".form-group").addClass("has-error");
+                window.alert("Something went wrong, try again")
             } else {
                 window.location.href = "home.html";
                 window.alert("You are now logged in");
-            }
+                SDK.User.findAll((err, users) => {
+                    SDK.Storage.persist("users", users);
+                });
+            };
         });
 
     });

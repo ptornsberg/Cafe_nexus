@@ -5,6 +5,7 @@ $(document).ready(() => {
     const $userList = $("#user-list");
 
     SDK.User.findAll((err, users) => {
+
         users.forEach((user) => {
 
             $userList.append(`

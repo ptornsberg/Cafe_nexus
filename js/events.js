@@ -19,6 +19,7 @@ $(document).ready(() => {
             <td>${event.description}</td>
             <td>${event.startDate}</td>
             <td>${event.endDate}</td>
+            <td>${(SDK.Storage.load("users"))[(event.owner.id)-1].firstName} ${(SDK.Storage.load("users"))[(event.owner.id)-1].lastName}</td>
            <td><button class="btn btn-default showEventBtn" data-event-id="${event.id}">Show</button></td>            
         </tr>
             
@@ -45,18 +46,13 @@ $(document).ready(() => {
             <td>${event.title}</td>
             <td>${event.description}</td>
             <td>${event.startDate}</td>
-            <td>${event.endDate}</td>          
+            <td>${event.endDate}</td>  
+            <td>${event.created}</td>  
+            <td>${(SDK.Storage.load("users"))[(event.owner.id)-1].firstName} ${(SDK.Storage.load("users"))[(event.owner.id)-1].lastName}</td> 
+            <td>${event.posts.length}</td>      
         </tr>
             
     </table>
-     <div class="<col>-lg-10">
-        <dl>
-            <dt>Created</dt>
-            <dd>${event.created}</dd>
-            <dt>By</dt>
-            <dd>${event.owner.id}</dd>         
-        </dl>       
-    </div>
     
 </div>
             `;
@@ -73,13 +69,12 @@ $(document).ready(() => {
 <div class="col-lg-10 col-lg-push-1 jumbotron">
 
     <tr>
-        <dt>Post</dt>
-        <dd>${post.content}</dd>
+        <H3 style="color:lightseagreen;">${post.content}</H3>
         <dt>Post created</dt>
-        <dd>${post.created}</dd>
+        <dd>${post.created}</dd>  
         <dt>By</dt>
-        <dd>${post.owner.id}</dd>
-        <dt>Comments</dt>
+        <dd>${(SDK.Storage.load("users"))[(post.owner.id)-1].firstName} ${(SDK.Storage.load("users"))[(post.owner.id)-1].lastName}</dd>
+        <dt style="color:lightseagreen;">Comments</dt>
         <dd><button class="btn btn-default showCommentsBtn" data-post-id="${post.id}">Show</button></dd>
         </tr> 
        
@@ -92,7 +87,8 @@ $(document).ready(() => {
                     $postList.append(eventPostsHtml);
                 });
 
-                $(".showCommentsBtn").click(function () {
+                $(".showCommentsBtn").unbind().click(function () {
+                    $("#modal-tbody").html("");
                     $("#comments-modal").modal("toggle");
 
                     const postId = $(this).data("post-id");
@@ -148,7 +144,8 @@ $(document).ready(() => {
 
 
             SDK.Posts.createComment(owner, content, parent, (err) => {
-                window.alert("Comment created");
+                $("#comments-modal").modal("toggle");
+               window.alert("Comment created");
             });
         });
         $("#createEventBtn").click(() => {
@@ -172,21 +169,16 @@ $(document).ready(() => {
                     const $modalTbody = $("#modal-tbody");
                     $modalTbody.append(`
     <dl>
-        <dt>Comments</dt>
-        <dl>${comment.content}</dl>
+        <H3 style="color:lightseagreen;">${comment.content}</H3>
         <dt>Comment created</dt>
         <dl>${comment.created}</dl>
-        <dt>By user</dt>
-        <dl>${comment.owner.id}</dt>
+        <dt>By</dt>
+        <dl>${(SDK.Storage.load("users"))[(comment.owner.id)-1].firstName} ${(SDK.Storage.load("users"))[(comment.owner.id)-1].lastName}</dt>
     </dl> 
         `);
                 });
             });
         });
-    });
-
-    $("comments-modal").on("hidden.bs.modal", function () {
-        $("#modal-tbody").html("");
     });
 
 });
