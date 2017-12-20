@@ -1,4 +1,9 @@
+//Creating a constant of SDK, it is possible to call methods from ofter .js pages.
 const SDK = {
+
+    //Initializing the serverURL.
+    //Reference: line 6 - 31 is copied from DIS Bookstore 2017
+    //which was used as an example in class.
     serverURL: "http://localhost:8080/api",
     request: (options, cb) => {
 
@@ -23,8 +28,9 @@ const SDK = {
                 cb({xhr: xhr, status: status, error: errorThrown});
             }
         });
-
     },
+
+    //All server calls on posts: findAll, findComments, create and createComments.
     Posts: {
         findAll: (cb) => {
             SDK.request({
@@ -69,6 +75,7 @@ const SDK = {
         },
     },
 
+    //All server calls on events: createEvent, findAll and findEvent.
     Events: {
         createEvent: (owner_id, title, startDate, endDate, description, cb) => {
             SDK.request({
@@ -82,7 +89,6 @@ const SDK = {
                     description: description
                 },
                 headers: {authorization: "Bearer " + SDK.Storage.load("token")},
-
             }, cb);
         },
         findAll: (cb) => {
@@ -100,9 +106,15 @@ const SDK = {
             }, cb);
         },
     },
+
+    //All server calls on User: findAll, create, current, logout, login and loadNav.
     User: {
         findAll: (cb) => {
-            SDK.request({url: "/users", method: "GET"}, cb);
+            SDK.request({
+                url: "/users",
+                method: "GET",
+                headers: {authorization: "Bearer " + SDK.Storage.load("token")}
+            }, cb);
         },
 
         create: (password, firstName, lastName, email, description, gender, major, semester, cb) => {
@@ -124,6 +136,8 @@ const SDK = {
         current: () => {
             return SDK.Storage.load("userId");
         },
+
+        //Removes all from local storage when logging out and returns to login page.
         logOut: () => {
             SDK.Storage.remove("token");
             SDK.Storage.remove("userId");
@@ -145,7 +159,8 @@ const SDK = {
                 //On login-error
                 if (err) return cb(err);
 
-                //https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript
+                //Decodes Token, to get out the userId, to be stored in local storage.
+                //Reference: line 162 - 169 https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript
                 let token = data;
 
                 var base64Url = token.split('.')[0];
@@ -159,6 +174,10 @@ const SDK = {
 
             });
         },
+
+
+        //Reference: line 180 - 215 is copied from DIS Bookstore 2017
+        //which was used as an example in class.
         loadNav: (cb) => {
             $("#nav-container").load("nav.html", () => {
                 const currentUser = SDK.User.current();

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 
+    <!-- link to stylesheets -->
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
 
@@ -10,6 +11,7 @@
 </head>
 <body>
 
+<!-- The login -->
 <div class="container" id="login">
 
     <div class="row">
@@ -34,6 +36,8 @@
 
 
 </div>
+
+<!-- Div for signing up new users - hidden to begin with -->
 <div class="container" id="signUp" style="display: none">
 
     <div class="row">
@@ -77,6 +81,7 @@
                        placeholder="What semester are you at, 1-6?">
             </div>
 
+            <!-- Button to show login and hide sign up -->
             <button style="margin-bottom: 40px" class="btn btn-default" id="signUpBtn">Submit</button>
             <p>Already a member? Login here... </p>
             <button style="margin-bottom: 40px" class="btn btn-default" id="showLoginBtn">Login</button>
@@ -86,12 +91,14 @@
 
 </div>
 
+<!-- The footer -->
 <footer class="footer" style="position: fixed; bottom: 0;">
     <div class="container">
         <p class="text-muted">2017 © All rights reserved - Cafe Nexus</p>
     </div>
 </footer>
 
+<!-- Creating links to javaScript files  -->
 <script src="lib/js/jquery-3.2.1.js"></script>
 <script src="lib/js/bootstrap.js"></script>
 <script src="js/sdk.js"></script>

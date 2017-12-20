@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    //Show and hide buttons for different div's in the login.html page.
     $("#showSignUpBtn").click(function () {
         $("#signUp").toggle(1000);
         $("#login").hide(1000);
@@ -8,6 +9,7 @@ $(document).ready(function () {
         $("#login").toggle(1000);
     });
 
+    //Sendes the email and password to validation on the server-
     $("#loginBtn").click(() => {
         const email = $("#inputEmail").val();
         const password = $("#inputPassword").val();
@@ -31,6 +33,8 @@ $(document).ready(function () {
         });
 
     });
+
+    /Creates a new user.
     $("#signUpBtn").click(() => {
 
         const firstName = $("#inputFirstName").val();
